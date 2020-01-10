@@ -10,33 +10,23 @@ export default {
     return {
       stars: {},
       starsIndex: 0,
-      density: 400,
+      density: 800,
+      canvas: null,
       context: null
     }
   },
-  computed: {
-    WIDTH() {
-      return window.innerWidth
-    },
-    HEIGHT() {
-      return window.innerHeight
-    }
-  },
   mounted() {
-    const canvas = document.getElementById('canvas')
-    this.context = canvas.getContext('2d')
-
-    canvas.width = this.WIDTH
-    canvas.height = this.HEIGHT
-
+    this.canvas = document.getElementById('canvas')
+    this.context = this.canvas.getContext('2d')
     this.init()
+    window.onresize = () => {
+      this.draw()
+    }
   },
   methods: {
     init () {
-      this.context.clearRect(0, 0, this.WIDTH, this.HEIGHT)
-      this.context.fillStyle = '#000'
-      this.context.fillRect(0, 0, this.WIDTH, this.HEIGHT)
-      const length = 400
+      this.draw()
+      const length = 800
 
       if (Object.keys(this.stars).length > length) {
         this.density = 0
@@ -52,11 +42,27 @@ export default {
       for (let i in this.stars) {
         this.stars[i].draw(this.context)
       }
-      requestAnimationFrame(this.init())
+
+      window.requestAnimationFrame(this.init)
+    },
+    draw () {
+      const WIDTH = window.innerWidth
+      const HEIGHT = window.innerHeight
+      this.canvas.width = WIDTH
+      this.canvas.height = HEIGHT
+      this.context.clearRect(0, 0, WIDTH, HEIGHT)
+      this.context.fillStyle = '#000'
+      this.context.fillRect(0, 0, WIDTH, HEIGHT)
     }
   }
 }
 </script>
 
 <style scoped lang="less">
+#canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -5;
+}
 </style>

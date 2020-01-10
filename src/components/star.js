@@ -4,7 +4,7 @@ const WIDTH = window.innerWidth
 const HEIGHT = window.innerHeight
 const settings = {
   r: 1400, // 圆形轨迹半径
-  height: 260, // 围绕旋转的圆露出的圆弧的高度
+  height: 120, // 围绕旋转的圆露出的圆弧的高度
   alpha: 0.0, // 当前透明度
   maxAlpha: 1 // 最大透明度
 }
@@ -14,7 +14,7 @@ function Star () {
   // 因此，已知x, 则y = Math.sqrt(r² - (x-a)²) + b
   // 其中，圆心是(a, b)
   // 在本例子中
-  // 圆心坐标是(WIDTH/2, HEIGHT - 600 + r)
+  // 圆心坐标是(WIDTH/2, HEIGHT - 120 + r)
   var a = WIDTH/2, b = HEIGHT - settings.height + settings.r;
   // 因此，已知横坐标随机
   this.x = Math.floor(Math.random() * WIDTH);
